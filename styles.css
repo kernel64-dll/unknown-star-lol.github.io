@@ -31,7 +31,7 @@ html{
   position:absolute;
   top: 0; bottom: 0; left: 0; right: 0;
   margin: auto;
-  height: 400px;
+  height: 390px;
 }
 
 .dropdown-btns {
@@ -61,11 +61,12 @@ h2:hover{
 }
 
 body {
+  background-image: url("images/bedrock.png");
   font-family: "minecraftregular";
   src:url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
-  background-color: #181818;
+  background-color: #000000;
   color:white;
-  text-shadow: 3px 3px #000000;
+  text-shadow: 3px 3px #262626;
 }
 
 .mcbold{
