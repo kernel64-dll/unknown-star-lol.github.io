@@ -1,5 +1,5 @@
 html{
-  zoom:200%;
+  zoom:220%;
 }
 
 @font-face {
@@ -31,7 +31,7 @@ html{
   position:absolute;
   top: 0; bottom: 0; left: 0; right: 0;
   margin: auto;
-  height: 390px;
+  height: 380px;
 }
 
 .dropdown-btns {
