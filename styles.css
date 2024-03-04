@@ -1,5 +1,5 @@
 html{
-  zoom:250%;
+  zoom:200%;
 }
 
 @font-face {
@@ -31,7 +31,33 @@ html{
   position:absolute;
   top: 0; bottom: 0; left: 0; right: 0;
   margin: auto;
-  height: 230px;
+  height: 400px;
+}
+
+.dropdown-btns {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.dropdown-btns1 {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dropdown-container {
+  margin-top: 10px;
+}
+
+h2 {
+  transition: 0.1s;
+  user-select: none;
+  cursor: pointer;
+}
+
+h2:hover{
+  transition: 0.1s;
+  color: #FFAA00;
 }
 
 body {
@@ -39,11 +65,11 @@ body {
   src:url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
   background-color: #181818;
   color:white;
+  text-shadow: 3px 3px #000000;
 }
 
 .mcbold{
   color:#FFAA00;
-  text-shadow: 3px 3px #000000;
   font-family: "minecraftbold";
   src:url("fonts/MINECRAFTBOLD-NMK1.OTF") format("truetype");
 }
@@ -52,26 +78,31 @@ img{
   border-radius:500px;
 }
 
+
 hr{
   border-width: 1;
 }
 
-.blur {
-  filter: blur(5px); /* Change the amount of blur as needed */
-  transition: filter 0.5s ease;
+.button:hover{
+  transition: 0.1s;
+  color: #FFAA00;
 }
 
 .button {
+  transition: 0.1s;
   display: inline-block;
   padding: 10px 20px;
   margin: 10px;
+  border: none;
   background-color: #313131;
   color: #fff;
   text-decoration: none;
-  text-shadow: 2px 2px #181818;
   box-shadow: 3px 3px #000000;
-  transition: background-color 0.3s;
+  font-family: "minecraftregular";
+  src:url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
+  text-shadow: 3px 3px #000000;
 }
+
 .button:hover {
   background-color: #282828;
 }
