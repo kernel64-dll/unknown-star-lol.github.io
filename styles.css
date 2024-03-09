@@ -129,6 +129,7 @@ hr{
   font-family: "minecraftregular";
   src:url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
   text-shadow: 3px 3px #000000;
+  background-image: url("images/stone.png");
 }
 
 .button:hover {

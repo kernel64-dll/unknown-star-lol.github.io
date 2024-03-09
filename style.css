@@ -1,0 +1,81 @@
+html{
+    zoom:160%;
+}
+
+@font-face {
+    font-family: 'minecraftbold';
+    src: url('fonts/minecraftbold-nmk1-webfont.woff2') format('woff2'),
+         url('fonts/minecraftbold-nmk1-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  
+  }
+  @font-face {
+    font-family: 'minecraftitalic';
+    src: url('fonts/minecraftitalic-r8mo-webfont.woff2') format('woff2'),
+         url('fonts/minecraftitalic-r8mo-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  
+  }
+  @font-face {
+    font-family: 'minecraftregular';
+    src: url('fonts/minecraftregular-bmg3-webfont.woff2') format('woff2'),
+         url('fonts/minecraftregular-bmg3-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  
+  }
+
+body{
+    background-image: url("images/door.jpg");
+    font-family: "minecraftregular";
+  src:url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
+}
+
+.queue {
+    color: #FFAA00;
+    position:absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    margin: auto;
+    height: 0px;
+    font-size: 35px;
+}
+
+p {
+    color: #FFAA00;
+    position:absolute;
+    text-shadow: 2px 2px rgb(42, 40, 0);
+}
+
+.backdropisweartogodifthisdoesntworkimgonnagomentallyinsane {
+    opacity: 50%;
+    background-color: black;
+    width: 500px;
+    height: 50px;
+    position: absolute;
+    right:10px;
+    top:15px;
+}
+
+.holyfuckthisshitmakesmegoinsane{
+    bottom: 0px;
+    position: absolute;
+    width: 500;
+    height: 120;
+}
+
+.chat {
+    position:relative;
+}
+
+.godown{
+    position: relative; 
+}
+
+.isaidgodown{
+    position:relative;
+    color: #FFAA00;
+    height:0;
+    left:5px;
+}
