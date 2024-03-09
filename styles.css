@@ -1,5 +1,5 @@
-html{
-  zoom:220%;
+html {
+  zoom: 220%;
 }
 
 @font-face {
@@ -8,23 +8,22 @@ html{
        url('fonts/minecraftbold-nmk1-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
 }
+
 @font-face {
   font-family: 'minecraftitalic';
   src: url('fonts/minecraftitalic-r8mo-webfont.woff2') format('woff2'),
        url('fonts/minecraftitalic-r8mo-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
 }
+
 @font-face {
   font-family: 'minecraftregular';
   src: url('fonts/minecraftregular-bmg3-webfont.woff2') format('woff2'),
        url('fonts/minecraftregular-bmg3-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
 }
 
 p {
@@ -36,14 +35,21 @@ li {
 }
 
 .centered {
-  position:absolute;
-  top: 0; bottom: 0; left: 0; right: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   margin: auto;
   height: 380px;
 }
+
 .centered2 {
-  position:absolute;
-  top: 0; bottom: 0; left: 0; right: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   margin: auto;
   height: 300px;
 }
@@ -53,6 +59,7 @@ li {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
+
 .dropdown-btns1 {
   display: none;
   opacity: 0;
@@ -73,47 +80,49 @@ h2 {
   cursor: pointer;
 }
 
-h2:hover{
+h2:hover {
   transition: 0.1s;
-  color: #FFAA00;
+  color: #ffaa00;
 }
 
 body {
-  background-image: url("images/bedrock.png");
+  background-image: url("images/space.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   font-family: "minecraftregular";
-  src:url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
+  src: url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
   background-color: #000000;
-  color:white;
+  color: white;
   text-shadow: 3px 3px #262626;
 }
 
 @media screen and (max-width: 500px) {
   body {
-      zoom: 60%;
+    zoom: 60%;
   }
+
   .centered {
     height: 440px;
   }
 }
 
-.mcbold{
-  color:#FFAA00;
+.mcbold {
+  color: #ffaa00;
   font-family: "minecraftbold";
-  src:url("fonts/MINECRAFTBOLD-NMK1.OTF") format("truetype");
+  src: url("fonts/MINECRAFTBOLD-NMK1.OTF") format("truetype");
 }
 
-img{
-  border-radius:500px;
+img {
+  border-radius: 500px;
 }
 
-
-hr{
+hr {
   border-width: 1;
 }
 
-.button:hover{
+.button:hover {
   transition: 0.1s;
-  color: #FFAA00;
+  color: #ffaa00;
 }
 
 .button {
@@ -127,7 +136,7 @@ hr{
   text-decoration: none;
   box-shadow: 3px 3px #000000;
   font-family: "minecraftregular";
-  src:url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
+  src: url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
   text-shadow: 3px 3px #000000;
   background-image: url("images/stone.png");
 }

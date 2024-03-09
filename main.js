@@ -1,4 +1,4 @@
-//don't mind the fact this is chatgpt, im lazy ok ;-;
+//don't mind the fact this is chatgpt, im lazy ok ;-; -will
 
 
 document.addEventListener("DOMContentLoaded", (event) => {
