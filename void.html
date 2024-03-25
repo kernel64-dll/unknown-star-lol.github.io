@@ -3,13 +3,20 @@
     <link rel="stylesheet" href="style.css">
     <script>
         window.onload = function() {
-            var audio = new Audio('memory.mp3'); // Replace 'your_music_file.mp3' with the path to your music file
-            audio.play();
+            var backgroundMusic = new Audio('memory.mp3'); // Replace 'your_music_file.mp3' with the path to your background music file
+
+            document.getElementById('playSoundButton').addEventListener('click', function() {
+                var soundEffect = new Audio('run.mp3'); // Replace 'your_sound_effect.mp3' with the path to your sound effect file
+                soundEffect.play();
+            });
+
+            backgroundMusic.play();
         };
     </script>
 </head>
 <body>
     <a href="index.html">Go back</a>
+    <button id="playSoundButton">Go back</button> <!-- New button to play sound -->
     <center>
         <p class="queue">ERROR 404</p>
     </center>
