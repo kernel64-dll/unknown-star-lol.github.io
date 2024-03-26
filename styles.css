@@ -86,7 +86,7 @@ h2:hover {
 }
 
 body {
-  background-image: url("images/space.png");
+  background-image: url("images/star.gif"); 
   background-repeat: no-repeat;
   background-size: cover;
   font-family: "minecraftregular";
@@ -95,6 +95,7 @@ body {
   color: white;
   text-shadow: 3px 3px #262626;
 }
+
 
 @media screen and (max-width: 500px) {
   body {
