@@ -86,7 +86,7 @@ h2:hover {
 }
 
 body {
-  background-image: url("images/star.gif"); 
+  background-image: url("images/star.gif"); /* gif location bs */
   background-repeat: no-repeat;
   background-size: cover;
   font-family: "minecraftregular";
@@ -95,9 +95,12 @@ body {
   color: white;
   text-shadow: 3px 3px #262626;
 
-  
-  animation: gifAnimation 10s infinite; 
+
+  transition: background-image 0.5s ease-in-out; 
 }
+
+
+
 
 @keyframes gifAnimation {
   0% { background-position: 0 0; }
