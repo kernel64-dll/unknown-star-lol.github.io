@@ -1,9 +1,10 @@
+// if error it just returns to index im too lazy to make a missing html thingy
 {
 
     "rewrites": [
       {
         "source": "/(.*)",
-        "destination": "/index.html" // if error 404 it just returns to index 
+        "destination": "/index.html" 
       }
     ]
   }
