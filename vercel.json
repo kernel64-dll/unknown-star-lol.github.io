@@ -3,7 +3,7 @@
     "rewrites": [
       {
         "source": "/(.*)",
-        "destination": "/index.html"
+        "destination": "/index.html" // if error 404 it just returns to index 
       }
     ]
   }
