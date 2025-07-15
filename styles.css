@@ -86,17 +86,19 @@ h2:hover {
 }
 
 body {
-  background-image: url("images/space.png"); /* gif location bs */
+  background-image: url("../images/space.png"); /* gif location */
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover;          /* Make the background stretch and fill the screen */
+  background-position: center;     /* Keep it centered */
+  background-attachment: fixed;    /* Optional: keep it fixed when scrolling */
+  
   font-family: "minecraftregular";
   src: url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
-  background-color: #000000;
-  color: white;
+  background-color: #0066ff;
+  color: rgb(255, 255, 255);
   text-shadow: 3px 3px #262626;
 
-
-  transition: background-image 1.5s ease-in-out; 
+  transition: background-image 1.5s ease-in-out;
 }
 
 
