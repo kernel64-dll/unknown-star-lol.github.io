@@ -91,8 +91,8 @@ body {
   background-size: cover;
   font-family: "minecraftregular";
   src: url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
-  background-color: #000000;
-  color: rgb(0, 4, 255);
+  background-color: #0066ff;
+  color: rgb(255, 255, 255);
   text-shadow: 3px 3px #262626;
 
 
