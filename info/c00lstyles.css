@@ -1,0 +1,159 @@
+html {
+  zoom: 220%;
+}
+
+@font-face {
+  font-family: 'minecraftbold';
+  src: url('fonts/minecraftbold-nmk1-webfont.woff2') format('woff2'),
+       url('fonts/minecraftbold-nmk1-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'minecraftitalic';
+  src: url('fonts/minecraftitalic-r8mo-webfont.woff2') format('woff2'),
+       url('fonts/minecraftitalic-r8mo-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'minecraftregular';
+  src: url('fonts/minecraftregular-bmg3-webfont.woff2') format('woff2'),
+       url('fonts/minecraftregular-bmg3-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+p {
+  font-size: small;
+}
+
+li {
+  font-size: 13px;
+}
+
+.centered {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 380px;
+}
+
+.centered2 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 300px;
+}
+
+.dropdown-btns {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dropdown-btns1 {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dropdown-container {
+  margin-top: 10px;
+}
+
+.small {
+  font-size: 10px;
+}
+
+h2 {
+  transition: 0.1s;
+  user-select: none;
+  cursor: pointer;
+}
+
+h2:hover {
+  transition: 0.1s;
+  color: #ff0000;
+}
+
+body {
+  background-image: url("images/star.gif"); /* gif location bs */
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "minecraftregular";
+  src: url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
+  background-color: #000000;
+  color: rgb(170, 19, 19);
+  text-shadow: 3px 3px #262626;
+
+
+  transition: background-image 1.5s ease-in-out; 
+}
+
+
+
+
+@keyframes gifAnimation {
+  0% { background-position: 0 0; }
+  100% { background-position: 100% 100%; }
+}
+
+
+
+@media screen and (max-width: 500px) {
+  body {
+    zoom: 60%;
+  }
+
+  .centered {
+    height: 440px;
+  }
+}
+
+.mcbold {
+  color: #ffaa00;
+  font-family: "minecraftbold";
+  src: url("fonts/MINECRAFTBOLD-NMK1.OTF") format("truetype");
+}
+
+img {
+  border-radius: 500px;
+}
+
+hr {
+  border-width: 1;
+}
+
+.button:hover {
+  transition: 0.1s;
+  color: #ffaa00;
+}
+
+.button {
+  transition: 0.1s;
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  background-color: #313131;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 3px 3px #000000;
+  font-family: "minecraftregular";
+  src: url("fonts/MINECRAFTREGULAR-NMK1.OTF") format("truetype");
+  text-shadow: 3px 3px #000000;
+  background-image: url("images/stone.png");
+}
+
+.button:hover {
+  background-color: #282828;
+}
