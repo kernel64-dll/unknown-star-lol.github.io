@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>star.lol | info</title>
+  <link rel="stylesheet" href="../styles.css">
+  <meta name="viewport" content="width=device-width">
+  <script src="../main.js"></script>
+  <style>
+    body {
+      background: #333;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    #lyrics {
+      text-align: center;
+      font-size: 1.6em;
+      margin-top: 20vh;
+      line-height: 2em;
+    }
+
+    .line {
+      opacity: 0;
+      transition: opacity 1s ease-in;
+    }
+
+    .fade-in {
+      opacity: 1;
+    }
+
+    #startBtn {
+      display: block;
+      margin: 20vh auto;
+      font-size: 1.3em;
+      padding: 12px 25px;
+    }
+
+    #mainContent {
+      display: none;
+      margin-top: 40px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="startBtn" onclick="startExperience()">Start</button>
+  <audio id="introAudio" src="../music/funfunfun.mp3"></audio> <!-- Put correct audio path here -->
+  <div id="lyrics"></div>
+
+  <div id="mainContent">
+    <button onclick="buttonClick('../index.html')" class="button small">Back</button>
+    <center>
+      <img src="../images/old.png" alt="hey thats me" width="100">
+      <div id="content" class="centered2">
+        <h1 class="mcbold">kernel</h1>
+        <div>
+          <p>Hi! I'm kernel32</p>
+          <p>typical femboy idiot</p>
+          <p>taken (duh why the fuck would i make a website for the 2 of us)</p>
+          <p>I'm interested in:</p>
+          <li>Programming (HTML,CSS)</li>
+          <li>c00lkidd :3</li>
+          <li>Gaming(TF2, CS2, COD, and RBLX)</li>
+          <li>Virtual Reality (Meta Quest 2)</li>
+          <li>kooki weird things (starts with p and ends in n)</li>
+          <p>Fun fact: I've been suspended from school for making proxys :] </p>
+        </div>
+      </div>
+    </center>
+  </div>
+
+  <script>
+    const lyrics = [
+      { time: 2.4, text: "Are you having fun yet? Oh" },
+      { time: 6.5, text: "Blood won't get any redder, yeah" },
+      { time: 10.3, text: "Isn't this fun? Oh" },
+      { time: 13.4, text: "Promise this game will get better, oh" }
+    ];
+
+    function startExperience() {
+      document.getElementById("startBtn").style.display = "none";
+      const audio = document.getElementById("introAudio");
+      const lyricsDiv = document.getElementById("lyrics");
+      audio.play();
+
+      lyrics.forEach((line, index) => {
+        const span = document.createElement("div");
+        span.className = "line";
+        span.textContent = line.text;
+        lyricsDiv.appendChild(span);
+
+        setTimeout(() => {
+          span.classList.add("fade-in");
+        }, line.time * 1000);
+      });
+
+      const lastLineTime = lyrics[lyrics.length - 1].time;
+      setTimeout(() => {
+        document.getElementById("lyrics").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+      }, (lastLineTime + 4) * 1000); // adjust to match fade-in end
+    }
+  </script>
+
+</body>
+</html>
