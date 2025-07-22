@@ -14,100 +14,151 @@
       height: 100vh;
       overflow: hidden;
     }
+
     #overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.85);
+      background: rgba(0, 0, 0, 0.85);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
       box-sizing: border-box;
+      z-index: 2;
+      cursor: pointer;
+      text-align: center;
     }
+
+    #clickText {
+      font-size: 1.4em;
+      margin-bottom: 30px;
+      opacity: 0.8;
+    }
+
     #lyrics {
       text-align: center;
       font-size: 1.6em;
       line-height: 2em;
     }
-    .line {
+
+    .word {
       opacity: 0;
-      transition: opacity 1s ease-in;
-      white-space: pre-wrap;
+      display: inline-block;
+      margin: 0 4px;
+      transition: opacity 0.4s ease-in;
     }
+
     .fade-in {
       opacity: 1;
     }
-    #startBtn {
-      font-size: 1.3em;
-      padding: 12px 25px;
-      margin-top: 20px;
-    }
+
     #mainContent {
-      display: none;
-      position: relative;
-      z-index: 1;
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 1s ease-in;
       padding: 20px;
       overflow: auto;
+      position: relative;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
 
-  <div id="overlay">
-    <button id="startBtn" onclick="startExperience()">Start</button>
+  <!-- Full screen overlay -->
+  <div id="overlay" onclick="startExperience()">
+    <div id="clickText">Click anywhere to begin</div>
     <audio id="introAudio" src="../music/funfunfun.mp3"></audio>
     <div id="lyrics"></div>
   </div>
 
+  <!-- Main website content (preloaded) -->
   <div id="mainContent">
-    <!-- Your existing page content -->
     <button onclick="buttonClick('../index.html')" class="button small">Back</button>
     <center>
       <img src="../images/old.png" alt="hey thats me" width="100">
       <div id="content" class="centered2">
         <h1 class="mcbold">kernel</h1>
-        <!-- ...rest of your content... -->
+        <div>
+          <p>Hi! I'm kernel32</p>
+          <p>typical femboy idiot</p>
+          <p>taken (duh why the fuck would i make a website for the 2 of us)</p>
+          <p>I'm interested in:</p>
+          <li>Programming (HTML,CSS)</li>
+          <li>c00lkidd :3</li>
+          <li>Gaming(TF2, CS2, COD, and RBLX)</li>
+          <li>Virtual Reality (Meta Quest 2)</li>
+          <li>kooki weird things (starts with p and ends in n)</li>
+          <p>Fun fact: I've been suspended from school for making proxys :] </p>
+        </div>
       </div>
     </center>
   </div>
 
   <script>
+    let started = false;
+
     const lyrics = [
-      { time: 0.5, text: "Are you having fun yet? Oh" },
-      { time: 4.2, text: "Blood won't get any redder, yeah" },
-      { time: 7.8, text: "Isn't this fun? Oh" },
-      { time: 10.5, text: "Promise this game will get better, oh" }
+      { time: 0.4, text: "Are you having fun yet? Oh" },
+      { time: 3.6, text: "Blood won't get any redder, yeah" },
+      { time: 7.1, text: "Isn't this fun? Oh" },
+      { time: 9.9, text: "Promise this game will get better, oh" }
     ];
 
     function startExperience() {
-      document.getElementById("startBtn").style.display = "none";
+      if (started) return; // prevent multiple clicks
+      started = true;
+
       const audio = document.getElementById("introAudio");
-      const lyricsDiv = document.getElementById("lyrics");
       const overlay = document.getElementById("overlay");
+      const lyricsDiv = document.getElementById("lyrics");
+
+      document.getElementById("clickText").style.display = "none";
       audio.play();
 
+      let totalLastTime = 0;
+
       lyrics.forEach(line => {
-        const span = document.createElement("div");
-        span.className = "line";
-        span.textContent = line.text;
-        lyricsDiv.appendChild(span);
-        setTimeout(() => span.classList.add("fade-in"), line.time * 1000);
+        const words = line.text.split(" ");
+        const lineContainer = document.createElement("div");
+
+        setTimeout(() => {
+          words.forEach((word, i) => {
+            const span = document.createElement("span");
+            span.className = "word";
+            span.textContent = word;
+            lineContainer.appendChild(span);
+
+            setTimeout(() => {
+              span.classList.add("fade-in");
+            }, i * 300); // spacing between words
+          });
+
+          lyricsDiv.appendChild(lineContainer);
+        }, line.time * 1000);
+
+        totalLastTime = line.time + (words.length * 0.3) + 1.5; // estimate total timing
       });
 
-      const lastTime = lyrics[lyrics.length - 1].time;
+      // Final fade-out and reveal main content
       setTimeout(() => {
-        overlay.style.transition = "opacity 1s";
+        overlay.style.transition = "opacity 1s ease-out";
         overlay.style.opacity = 0;
+
         setTimeout(() => {
           overlay.style.display = "none";
-          document.getElementById("mainContent").style.display = "block";
+          const main = document.getElementById("mainContent");
+          main.style.visibility = "visible";
+          main.style.opacity = 1;
         }, 1000);
-      }, (lastTime + 5) * 1000); // display 5s after last lyric
+      }, totalLastTime * 1000);
     }
   </script>
+
 </body>
 </html>
