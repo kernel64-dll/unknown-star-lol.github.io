@@ -4,85 +4,113 @@
   <title>star.lol | info</title>
   <link rel="stylesheet" href="../styles.css">
   <meta name="viewport" content="width=device-width">
-  <script src="../main.js"></script>
+  <script src="../main.js" defer></script>
   <style>
     body {
-      background: #333;
+      background: #111;
       color: white;
       font-family: sans-serif;
       margin: 0;
       height: 100vh;
       overflow: hidden;
     }
+
     #overlay {
-      position: absolute;
+      position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.9);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 20px;
-      box-sizing: border-box;
-      z-index: 2;
+      z-index: 10;
       cursor: pointer;
       text-align: center;
     }
+
     #clickText {
       font-size: 1.4em;
       margin-bottom: 30px;
-      opacity: 0.8;
+      opacity: 0.9;
     }
+
     #lyrics {
-      text-align: center;
       font-size: 1.6em;
       line-height: 2em;
     }
+
     .word {
       opacity: 0;
       display: inline-block;
       margin: 0 4px;
       transition: opacity 0.4s ease-in;
     }
+
     .fade-in {
       opacity: 1;
     }
+
     #mainContent {
-      display: block;
-      visibility: hidden;
       opacity: 0;
+      visibility: hidden;
       transition: opacity 1s ease-in;
-      padding: 20px;
       overflow: auto;
+      height: 100vh;
       position: relative;
       z-index: 1;
+      padding: 20px;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-container img {
+      margin: 10px;
+      max-width: 200px;
+      height: auto;
+      border-radius: 0;
     }
   </style>
 </head>
 <body>
 
-  <!-- Full-screen overlay -->
+  <!-- Intro overlay -->
   <div id="overlay" onclick="startExperience()">
     <div id="clickText">Click anywhere to begin</div>
-    <audio id="introAudio" src="../music/funfunfun.mp3"></audio>
+    <audio id="introAudio" src="../music/funfunfun.mp3" preload="auto"></audio>
     <div id="lyrics"></div>
   </div>
 
-  <!-- Main content (hidden until drop) -->
+  <!-- Main site -->
   <div id="mainContent">
     <button onclick="buttonClick('../index.html')" class="button small">Back</button>
     <center>
       <img src="../images/old.png" alt="hey thats me" width="100">
       <div id="content" class="centered2">
         <h1 class="mcbold">kernel</h1>
-        <!-- Your full content here -->
+        <div>
+          <p>Hi! I'm kernel32</p>
+          <p>typical femboy idiot</p>
+          <p>taken (duh why the fuck would i make a website for the 2 of us)</p>
+          <p>I'm interested in:</p>
+          <li>Programming (HTML,CSS)</li>
+          <li>c00lkidd :3</li>
+          <li>Gaming(TF2, CS2, COD, and RBLX)</li>
+          <li>Virtual Reality (Meta Quest 2)</li>
+          <li>kooki weird things (starts with p and ends in n)</li>
+          <p>Fun fact: I've been suspended from school for making proxys :] </p>
+        </div>
       </div>
     </center>
   </div>
 
   <script>
     let started = false;
+    const dropTime = 14.0;
 
     const lyrics = [
       { time: 0.4, text: "Are you having fun yet? Oh" },
@@ -91,9 +119,6 @@
       { time: 9.9, text: "Promise this game will get better, oh" }
     ];
 
-    // Adjust this to the track's drop moment in seconds
-    const dropTime = 14.0;
-
     function startExperience() {
       if (started) return;
       started = true;
@@ -101,6 +126,8 @@
       const audio = document.getElementById("introAudio");
       const overlay = document.getElementById("overlay");
       const lyricsDiv = document.getElementById("lyrics");
+      const main = document.getElementById("mainContent");
+
       document.getElementById("clickText").style.display = "none";
       audio.play();
 
@@ -121,15 +148,16 @@
         }, line.time * 1000);
       });
 
-      // Fade overlay and show main content exactly at drop
+      // Show site at drop
       setTimeout(() => {
         overlay.style.transition = "opacity 1s ease-out";
         overlay.style.opacity = 0;
+
         setTimeout(() => {
           overlay.style.display = "none";
-          const main = document.getElementById("mainContent");
           main.style.visibility = "visible";
           main.style.opacity = 1;
+          document.body.style.overflow = "auto"; // allow scrolling again
         }, 1000);
       }, dropTime * 1000);
     }
