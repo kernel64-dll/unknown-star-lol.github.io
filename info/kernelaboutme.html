@@ -9,10 +9,11 @@
     body {
       background: #111;
       color: white;
-      font-family: sans-serif;
+      background-image: url("images/space.png");
       margin: 0;
       height: 100vh;
       overflow: hidden;
+      font-family: 'minecraftregular';
     }
 
     #overlay {
@@ -27,6 +28,7 @@
       z-index: 10;
       cursor: pointer;
       text-align: center;
+      font-family: 'minecraftregular';
     }
 
     #clickText {
@@ -38,6 +40,7 @@
     #lyrics {
       font-size: 1.6em;
       line-height: 2em;
+      text-shadow: 3px 3px #262626;
     }
 
     .word {
@@ -60,6 +63,7 @@
       position: relative;
       z-index: 1;
       padding: 20px;
+      font-family: 'minecraftregular';
     }
 
     .image-container {
@@ -72,7 +76,24 @@
       margin: 10px;
       max-width: 200px;
       height: auto;
-      border-radius: 0;
+    }
+
+    .mcbold {
+      font-family: 'minecraftbold';
+    }
+
+    .button.small {
+      font-size: 0.9em;
+      padding: 8px 12px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .button.small:hover {
+      background-color: #444;
     }
   </style>
 </head>
@@ -99,7 +120,7 @@
           <p>I'm interested in:</p>
           <li>Programming (HTML,CSS)</li>
           <li>c00lkidd :3</li>
-          <li>Gaming(TF2, CS2, COD, and RBLX)</li>
+          <li>Gaming (TF2, CS2, COD, and RBLX)</li>
           <li>Virtual Reality (Meta Quest 2)</li>
           <li>kooki weird things (starts with p and ends in n)</li>
           <p>Fun fact: I've been suspended from school for making proxys :] </p>
@@ -110,7 +131,7 @@
 
   <script>
     let started = false;
-    const dropTime = 14.0;
+    const dropTime = 12.0;
 
     const lyrics = [
       { time: 0.4, text: "Are you having fun yet? Oh" },
@@ -157,11 +178,10 @@
           overlay.style.display = "none";
           main.style.visibility = "visible";
           main.style.opacity = 1;
-          document.body.style.overflow = "auto"; // allow scrolling again
+          document.body.style.overflow = "auto";
         }, 1000);
       }, dropTime * 1000);
     }
   </script>
-
 </body>
 </html>
