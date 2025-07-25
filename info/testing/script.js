@@ -1,14 +1,14 @@
 
 const info = `
-User:     Alan Garcia
-Host:     ChatGPT Terminal
-OS:       RealityOS 1.0
-Kernel:   Humanized Kernel 5.1.2
-Shell:    Curiosity ZSH
-Uptime:   21 Years
+User:     kernel!!
+Pronouns:     He/him orThey/Them
+Discord :       starr.lol
+Coding:   HTML, CSS
+Gaming:    COD,Roblox,Fortnite,CS2,tf2, beamng drive
+Uptime:   Unknown
 Language: English, Spanish
-Hobbies:  Coding, Music, Dogs, Modding
-Website:  alan.dev
+Taken:     duh. i love my pookie sm <3 (love youuu bluu!)
+Website:  https://kernelkidd.vercel.app
 `;
 
 let i = 0;
