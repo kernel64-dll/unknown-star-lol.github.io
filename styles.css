@@ -5,12 +5,12 @@ html, body {
 }
 
 body {
-  background-image: url("../images/space.pn"); /* gif or png */
+  background-image: url("../images/space.png"); /* gif or png */
   background-repeat: no-repeat;
   background-size: cover;       /* fill entire screen */
   background-position: center;  /* center the background */
   background-attachment: fixed; /* optional: fixed scroll */
-  background-color: #000000;
+  background-color: #0066ff;
   font-family: "minecraftregular";
   color: rgb(255, 255, 255);
   text-shadow: 3px 3px #262626;
