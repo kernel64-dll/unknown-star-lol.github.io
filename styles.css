@@ -10,7 +10,7 @@ body {
   background-size: cover;       /* fill entire screen */
   background-position: center;  /* center the background */
   background-attachment: fixed; /* optional: fixed scroll */
-  background-color: #0066ff;
+  background-color: #000000;
   font-family: "minecraftregular";
   color: rgb(255, 255, 255);
   text-shadow: 3px 3px #262626;
