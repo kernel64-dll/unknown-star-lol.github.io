@@ -5,7 +5,7 @@ html, body {
 }
 
 body {
-  background-image: url("../images/space.png"); /* gif or png */
+  background-image: url("../images/space.pn"); /* gif or png */
   background-repeat: no-repeat;
   background-size: cover;       /* fill entire screen */
   background-position: center;  /* center the background */
