@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>star.lol | main</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      font-family: 'minecraftregular', monospace;
+      background: black;
+      color: white;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+      cursor: pointer;
+      text-align: center;
+      transition: opacity 1s ease-out;
+    }
+
+    #clickText {
+      font-size: 1.6em;
+      color: white;
+      padding: 12px 24px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.4);
+      border-radius: 10px;
+    }
+
+    #content {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease-in;
+      padding: 20px;
+    }
+
+    #content.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .button {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-family: 'minecraftregular', monospace;
+      transition: background-color 0.3s ease;
+    }
+    .button:hover {
+      background-color: #444;
+    }
+
+    .mcbold {
+      font-family: 'minecraftbold';
+    }
+  </style>
+</head>
+<body>
+
+<!-- Canvas background -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- Overlay -->
+<div id="overlay" onclick="startExperience()">
+  <div id="clickText">🚀 Click to Begin Your Journey</div>
+</div>
+
+<!-- Main content -->
+<center>
+  <div id="content" class="centered">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+      <img src="images/nasty.png" height="131" width="136" alt="nasty" />
+      <h1>+</h1>
+      <img src="images/bluudud.png" height="131" width="136" alt="bluudud" />
+    </div>
+
+    <h1 class="mcbold">kernel + bluudud's website</h1>
+
+    <h2 id="dropdown-header">Links</h2>
+    <div class="dropdown-container">
+      <div class="dropdown-btns">
+        <button onclick="buttonClick('https://youtube.com/@realricepot')" class="button">Kernel's YouTube</button>
+        <button onclick="buttonClick('https://discord.gg/vGU4m3Kcbf')" class="button">Kernel's Discord Server!</button>
+        <button onclick="buttonClick('https://github.com/unknown-star-lol')" class="button">Kernel's GitHub</button>
+        <button onclick="buttonClick('info/kernelaboutme.html')" class="button">About kernel</button>
+        <button onclick="buttonClick('info/coolio.html')" class="button">About bluudud!</button>
+      </div>
+    </div>
+
+    <h2 id="dropdown-header1">Friends!</h2>
+    <div class="dropdown-container">
+      <div class="dropdown-btns1">
+        <button onclick="buttonClick('https://lapis.64will64.com')" class="button">Lapis!</button>
+        <button onclick="buttonClick('https://64will64.com')" class="button">64Will64</button>
+      </div>
+    </div>
+  </div>
+</center>
+
+<script>
+  let started = false;
+
+  function startExperience() {
+    if (started) return;
+    started = true;
+
+    const overlay = document.getElementById("overlay");
+    const main = document.getElementById("content");
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let hue = 0;
+
+    // Stars + Nebula
+    const stars = Array.from({ length: 200 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.5,
+      twinkle: Math.random() * 100
+    }));
+
+    const shootingStars = [];
+
+    function draw() {
+      requestAnimationFrame(draw);
+
+      // Background Nebula
+      let gradient = ctx.createRadialGradient(
+        canvas.width / 2, canvas.height / 2, 100,
+        canvas.width / 2, canvas.height / 2, canvas.width
+      );
+      gradient.addColorStop(0, `hsl(${(hue) % 360}, 80%, 10%)`);
+      gradient.addColorStop(1, `hsl(${(hue + 100) % 360}, 90%, 5%)`);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Twinkling Stars
+      for (const s of stars) {
+        const opacity = 0.5 + Math.sin((s.twinkle += 0.02)) * 0.3;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+        ctx.fill();
+      }
+
+      // Shooting stars
+      if (Math.random() < 0.005) {
+        shootingStars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height / 2,
+          dx: -3 - Math.random() * 2,
+          dy: 2 + Math.random() * 1,
+          len: 60 + Math.random() * 30
+        });
+      }
+
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const s = shootingStars[i];
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(s.x + s.len, s.y - s.len);
+        ctx.stroke();
+
+        s.x += s.dx;
+        s.y += s.dy;
+        s.len *= 0.98;
+
+        if (s.x + s.len < 0 || s.y > canvas.height) {
+          shootingStars.splice(i, 1);
+        }
+      }
+
+      // Color cycling
+      hue += 0.5;
+    }
+
+    draw();
+
+    // Fade overlay out and fade content in
+    overlay.style.opacity = 0;
+    setTimeout(() => {
+      overlay.style.display = "none";
+      main.classList.add("visible");
+      document.body.style.overflow = "auto";
+    }, 1000);
+  }
+
+  window.addEventListener("resize", () => {
+    const canvas = document.getElementById("bgCanvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  // Utility buttonClick function for your buttons
+  function buttonClick(url) {
+    window.open(url, '_blank');
+  }
+</script>
+
+</body>
+</html>
