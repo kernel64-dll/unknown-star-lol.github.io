@@ -1,171 +1,254 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>star.lol | main</title>
-  <link rel="stylesheet" href="styles.css" />
-  <meta name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    @keyframes star-flicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }body {
-  margin: 0;
-  font-family: 'minecraftregular', monospace;
-  background: black url("images/space.png") center center / cover no-repeat fixed;
-  color: white;
-  overflow: hidden;
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: black;
+      font-family: 'Courier New', monospace;
+      color: white;
+      overflow: hidden;
+    }
 
-#overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2em;
-  text-align: center;
-  cursor: pointer;
-  color: white;
-}
+    body::before {
+      content: "";
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: url("images/space.png") center/cover no-repeat;
+      opacity: 0.6;
+      z-index: -2;
+    }
 
-#content {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-  z-index: 1;
-  position: relative;
-}
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
 
-.button {
-  padding: 10px 20px;
-  margin: 5px;
-  font-size: 1em;
-  cursor: pointer;
-  border: none;
-  background: #333;
-  color: white;
-  border-radius: 5px;
-}
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.6em;
+      font-family: 'Courier New', monospace;
+      transition: opacity 1s ease-out;
+    }
 
-.button:hover {
-  background: #444;
-}
+    #mainContent {
+      opacity: 0;
+      transition: opacity 1s ease-in;
+    }
 
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
+    .centered {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
 
-img {
-  image-rendering: pixelated;
-}
+    .dropdown-container {
+      margin-bottom: 20px;
+    }
 
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  animation: star-flicker 2s infinite;
-}
+    .button {
+      font-size: 1em;
+      padding: 10px 20px;
+      margin: 5px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
+    .button:hover {
+      background-color: #555;
+    }
+
+    .visualizer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 100px;
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .bar {
+      flex: 1;
+      background: white;
+      height: 10px;
+      transition: height 0.1s ease-out;
+    }
   </style>
 </head>
 <body>
-  <div id="overlay" onclick="startExperience()">Click to begin</div>
-  <audio id="bgMusic" src="music/tylenol.mp3" preload="auto"></audio>
-  <canvas id="visualizer"></canvas>  <div id="content">
-    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-      <img src="images/nasty.png" height="131" width="136" alt="nasty">
-      <h1>+</h1>
-      <img src="images/bluudud.png" height="131" width="136" alt="bluudud">
-    </div><h1 class="mcbold">kernel + bluudud's website</h1>
+  <div id="overlay" onclick="startSite()">
+    Click anywhere to start
+  </div>
 
-<h2>Links</h2>
-<div>
-  <button onclick="buttonClick('https://youtube.com/@realricepot')" class="button">Kernel's YouTube</button>
-  <button onclick="buttonClick('https://discord.gg/vGU4m3Kcbf')" class="button">Kernel's Discord Server!</button>
-  <button onclick="buttonClick('https://github.com/unknown-star-lol')" class="button">Kernel's GitHub</button>
-  <button onclick="buttonClick('info/kernelaboutme.html')" class="button">About kernel</button>
-  <button onclick="buttonClick('info/coolio.html')" class="button">About bluudud!</button>
-</div>
+  <canvas id="stars"></canvas>
 
-<h2>Friends!</h2>
-<div>
-  <button onclick="buttonClick('https://lapis.codes')" class="button">Lapis!</button>
-  <button onclick="buttonClick('https://64will64.com')" class="button">64Will64</button>
-</div>
+  <div id="mainContent">
+    <center>
+      <div id="content" class="centered">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+          <img src="images/nasty.png" height="131" width="136">
+          <h1>+</h1>
+          <img src="images/bluudud.png" height="131" width="136">
+        </div>
 
-  </div>  <script>
+        <h1 class="mcbold">kernel + bluudud's website</h1>
+        <h2 id="dropdown-header">Links</h2>
+        <div class="dropdown-container">
+          <div class="dropdown-btns">
+            <button onclick="buttonClick('https://youtube.com/@realricepot')" class="button">Kernel's YouTube</button>
+            <button onclick="buttonClick('https://discord.gg/vGU4m3Kcbf')" class="button">Kernel's Discord Server!</button>
+            <button onclick="buttonClick('https://github.com/unknown-star-lol')" class="button">Kernel's GitHub</button>
+            <button onclick="buttonClick('info/kernelaboutme.html')" class="button">About kernel</button>
+            <button onclick="buttonClick('info/coolio.html')" class="button">About bluudud!</button>
+          </div>
+        </div>
+
+        <h2 id="dropdown-header1">Friends!</h2>
+        <div class="dropdown-container">
+          <div class="dropdown-btns1">
+            <button onclick="buttonClick('https://lapis.codes')" class="button">Lapis!</button>
+            <button onclick="buttonClick('https://64will64.com')" class="button">64Will64</button>
+          </div>
+        </div>
+      </div>
+    </center>
+  </div>
+
+  <audio id="bgMusic" src="music/funfunfun.mp3" preload="auto"></audio>
+  <div class="visualizer" id="visualizer"></div>
+
+  <script>
     function buttonClick(url) {
       window.location.href = url;
     }
 
-    function createStars() {
-      for (let i = 0; i < 100; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.top = Math.random() * window.innerHeight + 'px';
-        star.style.left = Math.random() * window.innerWidth + 'px';
-        document.body.appendChild(star);
-      }
+    function startSite() {
+      document.getElementById("overlay").style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("mainContent").style.opacity = 1;
+        document.body.style.overflow = "auto";
+        playMusic();
+      }, 1000);
     }
 
-    function startExperience() {
-      const overlay = document.getElementById('overlay');
-      const audio = document.getElementById('bgMusic');
-      const canvas = document.getElementById('visualizer');
-      const ctx = canvas.getContext('2d');
+    function playMusic() {
+      const audio = document.getElementById("bgMusic");
+      const visualizer = document.getElementById("visualizer");
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const src = ctx.createMediaElementSource(audio);
+      const analyser = ctx.createAnalyser();
 
-      overlay.style.display = 'none';
-      audio.play();
+      src.connect(analyser);
+      analyser.connect(ctx.destination);
+      analyser.fftSize = 64;
 
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const analyser = audioCtx.createAnalyser();
-      const source = audioCtx.createMediaElementSource(audio);
-      source.connect(analyser);
-      analyser.connect(audioCtx.destination);
-
-      analyser.fftSize = 256;
       const bufferLength = analyser.frequencyBinCount;
       const dataArray = new Uint8Array(bufferLength);
 
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      for (let i = 0; i < bufferLength; i++) {
+        const bar = document.createElement("div");
+        bar.classList.add("bar");
+        visualizer.appendChild(bar);
+      }
 
-      function draw() {
-        requestAnimationFrame(draw);
+      const bars = document.getElementsByClassName("bar");
+
+      function animate() {
+        requestAnimationFrame(animate);
         analyser.getByteFrequencyData(dataArray);
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        const barWidth = (canvas.width / bufferLength) * 2.5;
-        let x = 0;
-
-        for (let i = 0; i < bufferLength; i++) {
-          const barHeight = dataArray[i];
-          const r = barHeight + 25 * (i / bufferLength);
-          const g = 250 * (i / bufferLength);
-          const b = 50;
-
-          ctx.fillStyle = `rgb(${r},${g},${b})`;
-          ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-
-          x += barWidth + 1;
+        for (let i = 0; i < bars.length; i++) {
+          bars[i].style.height = `${dataArray[i] / 2}px`;
         }
       }
 
-      draw();
+      audio.play();
+      animate();
     }
 
-    window.onload = createStars;
-  </script></body>
+    // Star animation
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 150; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2,
+        d: Math.random() * 1
+      });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      ctx.beginPath();
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        ctx.moveTo(s.x, s.y);
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2, true);
+      }
+      ctx.fill();
+      updateStars();
+    }
+
+    function updateStars() {
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        s.y += s.d;
+        if (s.y > canvas.height) {
+          s.y = 0;
+          s.x = Math.random() * canvas.width;
+        }
+      }
+    }
+
+    function animateStars() {
+      drawStars();
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+  </script>
+</body>
 </html>
