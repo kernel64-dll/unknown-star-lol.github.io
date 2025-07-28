@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>kernel| info</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../styles.css">
+  <meta charset="UTF-8" />
+  <title>kernel32| info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../styles.css" />
   <script src="../main.js" defer></script>
   <style>
     html, body {
@@ -28,7 +28,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.5); /* semi-transparent space effect */
+      background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(3px);
       display: flex;
       justify-content: center;
@@ -37,6 +37,7 @@
       z-index: 10;
       cursor: pointer;
       text-align: center;
+      transition: opacity 1s ease-out;
     }
 
     #clickText {
@@ -57,6 +58,11 @@
       overflow: auto;
       height: 100vh;
       padding: 20px;
+    }
+
+    #mainContent.visible {
+      opacity: 1;
+      visibility: visible;
     }
 
     .button.small {
@@ -91,7 +97,7 @@
 
 <!-- Overlay: Click to Begin -->
 <div id="overlay" onclick="startExperience()">
-  <div id="clickText"> Click to Load...</div>
+  <div id="clickText">click to load, welcome! :3</div>
   <audio id="introAudio" src="../music/funfunfun.mp3" preload="auto"></audio>
 </div>
 
@@ -99,16 +105,16 @@
 <div id="mainContent">
   <button onclick="buttonClick('../index.html')" class="button small">Back</button>
   <center>
-    <img src="../images/old.png" alt="hey thats me" width="100">
+    <img src="../images/old.png" alt="hey thats me" width="100" />
     <div id="content" class="centered2">
       <h1 class="mcbold">kernel</h1>
       <div>
-        <p>Hi! I'm kernel32</p>
+        <p>Hi! I'm kernel! :3</p>
         <p>typical femboy idiot</p>
         <p>taken (duh why the fuck would i make a website for the 2 of us)</p>
         <p>I'm interested in:</p>
         <li>Programming (HTML,CSS)</li>
-        <li>c00lkidd :3</li>
+        <li>bluudud :3</li>
         <li>Gaming (TF2, CS2, COD, and RBLX)</li>
         <li>Virtual Reality (Meta Quest 2)</li>
         <li>kooki weird things (starts with p and ends in n)</li>
@@ -225,16 +231,13 @@
     audio.play();
     audioCtx.resume();
 
+    // Fade overlay out and fade main content in
+    overlay.style.opacity = 0;
     setTimeout(() => {
-      overlay.style.transition = "opacity 1s ease-out";
-      overlay.style.opacity = 0;
-      setTimeout(() => {
-        overlay.style.display = "none";
-        main.style.visibility = "visible";
-        main.style.opacity = 1;
-        document.body.style.overflow = "auto";
-      }, 1000);
-    }, 12000);
+      overlay.style.display = "none";
+      main.classList.add("visible");
+      document.body.style.overflow = "auto";
+    }, 1000);
   }
 
   window.addEventListener("resize", () => {
