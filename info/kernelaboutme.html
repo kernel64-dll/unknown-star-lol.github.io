@@ -1,7 +1,8 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>star.lol | info</title>
+  <title>kernel| info</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles.css">
   <script src="../main.js" defer></script>
@@ -11,113 +12,113 @@
       padding: 0;
       overflow: hidden;
       height: 100%;
-      font-family: 'Courier New', monospace;
-      color: lime;
+      font-family: 'minecraftregular', monospace;
+      color: white;
       background: black;
-      background-image: url("../images/space-background.gif"); /* Retro animated background */
-      background-repeat: repeat;
-    }canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-}
+    }
 
-#overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 10;
-  cursor: pointer;
-  text-align: center;
-  border: 4px ridge lime;
-}
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
 
-#clickText {
-  font-size: 1.5em;
-  color: lime;
-  padding: 10px 20px;
-  background: black;
-  border: 2px dashed lime;
-  text-shadow: 1px 1px 0 lime;
-}
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* semi-transparent space effect */
+      backdrop-filter: blur(3px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+      cursor: pointer;
+      text-align: center;
+    }
 
-#mainContent {
-  position: relative;
-  z-index: 1;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 1s ease-in;
-  overflow: auto;
-  height: 100vh;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-top: 3px groove lime;
-}
+    #clickText {
+      font-size: 1.6em;
+      color: white;
+      padding: 12px 24px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.4);
+      border-radius: 10px;
+    }
 
-.button.small {
-  font-size: 0.9em;
-  padding: 8px 12px;
-  background-color: black;
-  color: lime;
-  border: 2px dotted lime;
-  cursor: pointer;
-  font-weight: bold;
-}
+    #mainContent {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease-in;
+      overflow: auto;
+      height: 100vh;
+      padding: 20px;
+    }
 
-.button.small:hover {
-  background-color: lime;
-  color: black;
-}
+    .button.small {
+      font-size: 0.9em;
+      padding: 8px 12px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
 
-.mcbold {
-  font-weight: bold;
-  font-size: 1.3em;
-  text-shadow: 0 0 3px lime;
-}
+    .button.small:hover {
+      background-color: #444;
+    }
 
-.image-container img {
-  margin: 10px;
-  max-width: 200px;
-  height: auto;
-  border: 2px solid lime;
-}
+    .mcbold {
+      font-family: 'minecraftbold';
+    }
 
+    .image-container img {
+      margin: 10px;
+      max-width: 200px;
+      height: auto;
+    }
   </style>
 </head>
-<body><!-- Canvas: Stars, Nebula, Visualizer --><canvas id="bgCanvas"></canvas>
+<body>
 
-<!-- Overlay: Click to Begin --><div id="overlay" onclick="startExperience()">
-  <div id="clickText">🚀 Click to Launch Into Cyberspace</div>
+<!-- Canvas: Stars, Nebula, Visualizer -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- Overlay: Click to Begin -->
+<div id="overlay" onclick="startExperience()">
+  <div id="clickText"> Click to Load...</div>
   <audio id="introAudio" src="../music/funfunfun.mp3" preload="auto"></audio>
-</div><!-- Main content --><div id="mainContent">
-  <button onclick="buttonClick('../index.html')" class="button small">Back to Home</button>
+</div>
+
+<!-- Main content -->
+<div id="mainContent">
+  <button onclick="buttonClick('../index.html')" class="button small">Back</button>
   <center>
     <img src="../images/old.png" alt="hey thats me" width="100">
     <div id="content" class="centered2">
-      <h1 class="mcbold">KERNEL.EXE</h1>
+      <h1 class="mcbold">kernel</h1>
       <div>
-        <p>Welcome to the Galactic Terminal!</p>
-        <p>Username: <strong>KERNEL32</strong></p>
-        <p>Status: Connected from Cyberspace</p>
-        <p>About Me:</p>
-        <ul>
-          <li>💾 Hacking the planet</li>
-          <li>💻 Coding (HTML, CSS)</li>
-          <li>🎮 Gaming: TF2, CS2, COD, RBLX</li>
-          <li>🕶️ Virtual Reality on Quest 2</li>
-          <li>💌 Lover of cursed content</li>
-        </ul>
-        <p><strong>SYSTEM NOTICE:</strong> Suspended for Proxy Breach Protocol ⚠️</p>
+        <p>Hi! I'm kernel32</p>
+        <p>typical femboy idiot</p>
+        <p>taken (duh why the fuck would i make a website for the 2 of us)</p>
+        <p>I'm interested in:</p>
+        <li>Programming (HTML,CSS)</li>
+        <li>c00lkidd :3</li>
+        <li>Gaming (TF2, CS2, COD, and RBLX)</li>
+        <li>Virtual Reality (Meta Quest 2)</li>
+        <li>kooki weird things (starts with p and ends in n)</li>
+        <p>Fun fact: I've been suspended from school for making proxys :] </p>
       </div>
     </div>
   </center>
-</div><script>
+</div>
+
+<script>
   let started = false;
 
   function startExperience() {
@@ -144,32 +145,76 @@
     const dataArray = new Uint8Array(bufferLength);
 
     let hue = 0;
-    const stars = Array.from({ length: 100 }, () => ({
+
+    // Stars + Nebula
+    const stars = Array.from({ length: 200 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      r: Math.random() * 2,
+      r: Math.random() * 1.5 + 0.5,
       twinkle: Math.random() * 100
     }));
 
+    const shootingStars = [];
+
     function draw() {
       requestAnimationFrame(draw);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Background Nebula
+      let gradient = ctx.createRadialGradient(
+        canvas.width / 2, canvas.height / 2, 100,
+        canvas.width / 2, canvas.height / 2, canvas.width
+      );
+      gradient.addColorStop(0, `hsl(${(hue) % 360}, 80%, 10%)`);
+      gradient.addColorStop(1, `hsl(${(hue + 100) % 360}, 90%, 5%)`);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Twinkling Stars
       for (const s of stars) {
-        const opacity = 0.5 + Math.sin((s.twinkle += 0.05)) * 0.5;
+        const opacity = 0.5 + Math.sin((s.twinkle += 0.02)) * 0.3;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,255,255,${opacity})`;
         ctx.fill();
       }
 
+      // Shooting stars
+      if (Math.random() < 0.005) {
+        shootingStars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height / 2,
+          dx: -3 - Math.random() * 2,
+          dy: 2 + Math.random() * 1,
+          len: 60 + Math.random() * 30
+        });
+      }
+
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const s = shootingStars[i];
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(s.x + s.len, s.y - s.len);
+        ctx.stroke();
+
+        s.x += s.dx;
+        s.y += s.dy;
+        s.len *= 0.98;
+
+        if (s.x + s.len < 0 || s.y > canvas.height) {
+          shootingStars.splice(i, 1);
+        }
+      }
+
+      // Visualizer Bars
       analyser.getByteFrequencyData(dataArray);
-      const barWidth = (canvas.width / bufferLength) * 1.5;
+      const barWidth = (canvas.width / bufferLength) * 1.2;
       let x = 0;
       for (let i = 0; i < bufferLength; i++) {
-        const barHeight = dataArray[i];
-        ctx.fillStyle = `hsl(${(hue + i * 3) % 360}, 100%, 50%)`;
-        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+        const barHeight = dataArray[i] * 0.6;
+        ctx.fillStyle = `hsl(${(hue + i * 2) % 360}, 100%, 60%)`;
+        ctx.fillRect(x, canvas.height - barHeight - 10, barWidth, barHeight);
         x += barWidth + 1;
       }
 
@@ -189,7 +234,7 @@
         main.style.opacity = 1;
         document.body.style.overflow = "auto";
       }, 1000);
-    }, 8000);
+    }, 12000);
   }
 
   window.addEventListener("resize", () => {
@@ -197,5 +242,7 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   });
-</script></body>
+</script>
+
+</body>
 </html>
