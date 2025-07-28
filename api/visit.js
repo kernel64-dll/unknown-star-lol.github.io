@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   const payload = {
     embeds: [
       {
-        title: "Results for kernelkidd.vercel.app:",
+        title: "look! someone visited the website :3 ",
         description: `\`User-Agent:\`\n${userAgent}`,
         color: 0x00ff88, // minty green stripe like in your image
         timestamp: new Date().toISOString()
