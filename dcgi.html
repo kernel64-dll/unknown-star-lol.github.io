@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generate User Hash URLs</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #0f0;
+      font-family: monospace;
+      padding: 20px;
+    }
+    #output {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #222;
+      padding: 10px;
+      margin-top: 20px;
+      border: 1px solid #333;
+      max-height: 70vh;
+      overflow: auto;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #333;
+      color: #0f0;
+      border: 1px solid #0f0;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:hover {
+      background: #0f0;
+      color: #000;
+    }
+    #status {
+      margin-top: 10px;
+      color: #0f0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Generate 1000 User Hash URLs</h1>
+  <button onclick="generateJSON()">Generate</button>
+  <button onclick="copyToClipboard()">Copy to Clipboard</button>
+  <div id="output"></div>
+  <div id="status"></div>
+
+  <script>
+    const baseUrl = "https://discord.gift/";
+
+    function generateRandomString(length = 16) {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+
+    function generateJSON() {
+      const count = 1000;
+      const urls = [];
+      for (let i = 0; i < count; i++) {
+        urls.push(baseUrl + generateRandomString(16));
+      }
+      const jsonOutput = JSON.stringify(urls, null, 2);
+      document.getElementById("output").textContent = jsonOutput;
+      document.getElementById("status").textContent = "";
+    }
+
+    function copyToClipboard() {
+      const text = document.getElementById("output").textContent;
+      if (!text.trim()) {
+        document.getElementById("status").textContent = "Nothing to copy!";
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        document.getElementById("status").textContent = "Copied to clipboard!";
+      }).catch(err => {
+        document.getElementById("status").textContent = "Failed to copy.";
+        console.error("Clipboard error:", err);
+      });
+    }
+  </script>
+</body>
+</html>
