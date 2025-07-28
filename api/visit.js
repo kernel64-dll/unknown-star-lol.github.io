@@ -1,4 +1,4 @@
-const cooldownSeconds = 60; // Cooldown in seconds
+const cooldownSeconds = 20; // Cooldown in seconds
 const recentVisits = {}; // In-memory cooldown tracking
 
 export default async function handler(req, res) {
@@ -32,9 +32,9 @@ export default async function handler(req, res) {
   const payload = {
     embeds: [
       {
-        title: "Results for kernelkidd.vercel.app:",
+        title: "look! someone visited the website :3",
         description:
-          `\`User-Agent:\`\n${userAgent}\n\n` +
+          `\`i dunno why but heres the user-agent:\`\n${userAgent}\n\n` +
           `🕒 Accessed at: <t:${timestamp}:F>`,
         color: 0x00ff88,
         timestamp: new Date().toISOString()
