@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).end();
 
-  const webhookUrl = "https://discord.com/api/webhooks/1399526596972384356/r9GnxGasL3W0P0dK7-zShhq35gvmpxKbuzZDZzA3TAyR3tD6f6sOG2YYHbd_uxjahoAk"; // replace this
+  const webhookUrl = process.env.DISCORD_WEBHOOK;
 
   const userAgent = req.headers['user-agent'] || 'Unknown';
 
