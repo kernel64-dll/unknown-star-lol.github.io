@@ -1,34 +1,114 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>star.lol | info</title>
-    <link rel="stylesheet" href="sadmouse_styles.css">
-    <meta name="viewport" content="width=device-width">
-    <script src="../main.js"></script>
-    <style>
-        .image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .image-container img {
-            margin: 10px;
-            max-width: 200px; 
-            height: auto;
-            border-radius: 0; 
-        }
-    </style>
-    
+  <meta charset="UTF-8" />
+  <title>kernel32| info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../info/sadmouse_styles.css" />
+  <script src="../main.js" defer></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      font-family: 'minecraftregular', monospace;
+      color: white;
+      background: black;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+      cursor: pointer;
+      text-align: center;
+      transition: opacity 1s ease-out;
+    }
+
+    #clickText {
+      font-size: 1.6em;
+      color: white;
+      padding: 12px 24px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.4);
+      border-radius: 10px;
+    }
+
+    #mainContent {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease-in;
+      overflow: auto;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    #mainContent.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .button.small {
+      font-size: 0.9em;
+      padding: 8px 12px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .button.small:hover {
+      background-color: #444;
+    }
+
+    .mcbold {
+      font-family: 'minecraftbold';
+    }
+
+    .image-container img {
+      margin: 10px;
+      max-width: 200px;
+      height: auto;
+    }
+  </style>
 </head>
 <body>
-    <button onclick="buttonClick('../index.html')" class="button small">Back</button>
-    <center>
-        <img src="/images/bluudud.png" alt="hey thats me" width="100">
-        <div id="content" class="centered2">
-            
-                
 
-            <h1 class="mcbold">bluudud</h1>
+<!-- Canvas: Stars, Nebula, Visualizer -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- Overlay: Click to Begin -->
+<div id="overlay" onclick="startExperience()">
+  <div id="clickText">click to load, welcome! :3</div>
+  <audio id="introAudio" src="../music/bluudanc.mp3" preload="auto"></audio>
+</div>
+
+<!-- Main content -->
+<div id="mainContent">
+  <button onclick="buttonClick('../index.html')" class="button small">Back</button>
+  <center>
+    <img src="../images/bluudud.png" alt="hey thats me" width="100" />
+    <div id="content" class="centered2">
+      <h1 class="mcbold">bluudud</h1>
             <div>
                 <p>HEEEY MY NAME IS BLUUDUD AND WAKE THE FUCK UP!!!!</p>
                 <p>very cool person</p>
@@ -40,10 +120,135 @@
                 <li>Weather Related things</li>
                 <li>EAS</li>
                 <li>forsaken (sometimes..) </li>
-                
             </div>
-            
-        </div>
-    </center>
+      </div>
+    </div>
+  </center>
+</div>
+
+<script>
+  let started = false;
+
+  function startExperience() {
+    if (started) return;
+    started = true;
+
+    const audio = document.getElementById("introAudio");
+    const overlay = document.getElementById("overlay");
+    const main = document.getElementById("mainContent");
+
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioCtx.createMediaElementSource(audio);
+    const analyser = audioCtx.createAnalyser();
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+    analyser.fftSize = 256;
+
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    let hue = 0;
+
+    // Stars + Nebula
+    const stars = Array.from({ length: 200 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.5,
+      twinkle: Math.random() * 100
+    }));
+
+    const shootingStars = [];
+
+    function draw() {
+      requestAnimationFrame(draw);
+
+      // Background Nebula
+      let gradient = ctx.createRadialGradient(
+        canvas.width / 2, canvas.height / 2, 100,
+        canvas.width / 2, canvas.height / 2, canvas.width
+      );
+      gradient.addColorStop(0, `hsl(${(hue) % 360}, 80%, 10%)`);
+      gradient.addColorStop(1, `hsl(${(hue + 100) % 360}, 90%, 5%)`);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Twinkling Stars
+      for (const s of stars) {
+        const opacity = 0.5 + Math.sin((s.twinkle += 0.02)) * 0.3;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+        ctx.fill();
+      }
+
+      // Shooting stars
+      if (Math.random() < 0.005) {
+        shootingStars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height / 2,
+          dx: -3 - Math.random() * 2,
+          dy: 2 + Math.random() * 1,
+          len: 60 + Math.random() * 30
+        });
+      }
+
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const s = shootingStars[i];
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(s.x + s.len, s.y - s.len);
+        ctx.stroke();
+
+        s.x += s.dx;
+        s.y += s.dy;
+        s.len *= 0.98;
+
+        if (s.x + s.len < 0 || s.y > canvas.height) {
+          shootingStars.splice(i, 1);
+        }
+      }
+
+      // Visualizer Bars
+      analyser.getByteFrequencyData(dataArray);
+      const barWidth = (canvas.width / bufferLength) * 1.2;
+      let x = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = dataArray[i] * 0.6;
+        ctx.fillStyle = `hsl(${(hue + i * 2) % 360}, 100%, 60%)`;
+        ctx.fillRect(x, canvas.height - barHeight - 10, barWidth, barHeight);
+        x += barWidth + 1;
+      }
+
+      hue += 0.5;
+    }
+
+    draw();
+    audio.play();
+    audioCtx.resume();
+
+    // Fade overlay out and fade main content in
+    overlay.style.opacity = 0;
+    setTimeout(() => {
+      overlay.style.display = "none";
+      main.classList.add("visible");
+      document.body.style.overflow = "auto";
+    }, 1000);
+  }
+
+  window.addEventListener("resize", () => {
+    const canvas = document.getElementById("bgCanvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+
 </body>
 </html>
+
