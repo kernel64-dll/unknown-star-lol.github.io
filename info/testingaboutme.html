@@ -35,16 +35,16 @@
       flex-direction: column;
       z-index: 10;
       cursor: pointer;
-      transition: opacity 0.5s ease-out;
       text-align: center;
+      transition: opacity 1s ease-out;
     }
 
     #text {
       font-size: 1.6em;
       color: white;
       padding: 12px 24px;
-      background: rgba(0,0,0,0.4);
       border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.4);
       border-radius: 10px;
     }
 
@@ -91,13 +91,13 @@
 </head>
 <body>
 
-<!-- Optional: Background canvas -->
+<!-- Canvas Background -->
 <canvas id="bgCanvas"></canvas>
 
-<!-- Overlay/Popup -->
+<!-- Animated Overlay -->
 <div id="enter-popup">
   <div id="text">click to enter</div>
-  <audio id="enter-sound" src="../music/loser.mp3" preload="auto"></audio>
+  <audio id="enter-sound" src="../music/bipolar.mp3" preload="auto"></audio>
 </div>
 
 <!-- Main content -->
@@ -124,7 +124,8 @@
 </div>
 
 <script>
-  let titleText = "Totally better than fucking nobody";
+  let started = false;
+  let titleText = "my teritory my rules.";
   let opacity = 0;
   let fadeIn = true;
   let delay = 0.004;
@@ -159,22 +160,108 @@
   const main = document.getElementById("mainContent");
 
   overlay.addEventListener("click", function () {
-    overlay.classList.add("clicked");
-    audio.loop = true;
-    audio.play().catch(e => {
-      console.log("Audio error:", e);
-      alert("Audio couldn't play. Try clicking again or allow autoplay.");
-    });
+    if (started) return;
+    started = true;
 
-    setTimeout(() => {
-      overlay.style.opacity = "0";
-      setTimeout(() => {
-        overlay.style.display = "none";
-        main.classList.add("visible");
-        document.body.style.overflow = "auto";
-      }, 500);
-    }, 200);
+    // Audio setup
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioCtx.createMediaElementSource(audio);
+    const analyser = audioCtx.createAnalyser();
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+    analyser.fftSize = 256;
+
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    let hue = 0;
+
+    const stars = Array.from({ length: 200 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.5,
+      twinkle: Math.random() * 100
+    }));
+
+    const shootingStars = [];
+
+    function draw() {
+      requestAnimationFrame(draw);
+
+      // Background
+      let gradient = ctx.createRadialGradient(
+        canvas.width / 2, canvas.height / 2, 100,
+        canvas.width / 2, canvas.height / 2, canvas.width
+      );
+      gradient.addColorStop(0, `hsl(${(hue) % 360}, 80%, 10%)`);
+      gradient.addColorStop(1, `hsl(${(hue + 100) % 360}, 90%, 5%)`);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Stars
+      for (const s of stars) {
+        const opacity = 0.5 + Math.sin((s.twinkle += 0.02)) * 0.3;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+        ctx.fill();
+      }
+
+      // Shooting stars
+      if (Math.random() < 0.005) {
+        shootingStars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height / 2,
+          dx: -3 - Math.random() * 2,
+          dy: 2 + Math.random() * 1,
+          len: 60 + Math.random() * 30
+        });
+      }
+
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const s = shootingStars[i];
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(s.x + s.len, s.y - s.len);
+        ctx.stroke();
+
+        s.x += s.dx;
+        s.y += s.dy;
+        s.len *= 0.98;
+
+        if (s.x + s.len < 0 || s.y > canvas.height) {
+          shootingStars.splice(i, 1);
+        }
+      }
+
+      // Audio visualizer
+      analyser.getByteFrequencyData(dataArray);
+      const barWidth = (canvas.width / bufferLength) * 1.2;
+      let x = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = dataArray[i] * 0.6;
+        ctx.fillStyle = `hsl(${(hue + i * 2) % 360}, 100%, 60%)`;
+        ctx.fillRect(x, canvas.height - barHeight - 10, barWidth, barHeight);
+        x += barWidth + 1;
+      }
+
+      hue += 0.5;
+    }
+
+    // Audio and UI
+    audio.play();
+    audioCtx.resume();
+    requestAnimationFrame(draw);
+    requestAnimationFrame(updateTitle);
+
+    // Text animation
     let i = 0;
     function updateText() {
       if (i < phrases.length) {
@@ -182,6 +269,11 @@
         if (i === phrases.length - 1) {
           setTimeout(() => {
             overlay.style.opacity = "0";
+            setTimeout(() => {
+              overlay.style.display = "none";
+              main.classList.add("visible");
+              document.body.style.overflow = "auto";
+            }, 500);
           }, delays[i] * 1000);
         } else {
           setTimeout(updateText, delays[i] * 1000);
@@ -190,11 +282,9 @@
       }
     }
 
-    requestAnimationFrame(updateTitle);
     updateText();
   });
 
-  // Optional: Resize canvas for bg effects if you use it
   window.addEventListener("resize", () => {
     const canvas = document.getElementById("bgCanvas");
     canvas.width = window.innerWidth;
