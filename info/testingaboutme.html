@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>kernel32| info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../main.js" defer></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      font-family: 'minecraftregular', monospace;
+      color: white;
+      background: black;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    #enter-popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+      cursor: pointer;
+      transition: opacity 0.5s ease-out;
+      text-align: center;
+    }
+
+    #text {
+      font-size: 1.6em;
+      color: white;
+      padding: 12px 24px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+    }
+
+    #mainContent {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease-in;
+      overflow: auto;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    #mainContent.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .button.small {
+      font-size: 0.9em;
+      padding: 8px 12px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .button.small:hover {
+      background-color: #444;
+    }
+
+    .mcbold {
+      font-family: 'minecraftbold';
+    }
+
+    .image-container img {
+      margin: 10px;
+      max-width: 200px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Optional: Background canvas -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- Overlay/Popup -->
+<div id="enter-popup">
+  <div id="text">click to enter</div>
+  <audio id="enter-sound" src="../music/loser.mp3" preload="auto"></audio>
+</div>
+
+<!-- Main content -->
+<div id="mainContent">
+  <button onclick="buttonClick('../index.html')" class="button small">Back</button>
+  <center>
+    <img src="../images/nasty.png" alt="hey thats me" width="100" />
+    <div id="content" class="centered2">
+      <h1 class="mcbold">kernel</h1>
+      <div>
+        <p>Hey. I'm kernel</p>
+        <p>typical idiot</p>
+        <p>middle text 1</p>
+        <p>I'm interested in:</p>
+        <li>coding(HTML,CSS)</li>
+        <li>bluudud :3</li>
+        <li>games (TF2, CS2, COD, and RBLX)</li>
+        <li>VR (my quest 2 is DEAD 😭)</li>
+        <li>fav artist: femtanyl</li>
+        <p>Fun fact: im heavily suicidal, so if I'm in a bad mood, please. dni. ty :3</p>
+      </div>
+    </div>
+  </center>
+</div>
+
+<script>
+  let titleText = "Totally better than fucking nobody";
+  let opacity = 0;
+  let fadeIn = true;
+  let delay = 0.004;
+
+  function updateTitle() {
+    let displayText = titleText.charAt(0) + titleText.slice(1, Math.floor(opacity * (titleText.length - 1)) + 1);
+    document.title = displayText;
+
+    if (fadeIn) {
+      opacity += delay;
+      if (opacity >= 1) fadeIn = false;
+    } else {
+      opacity -= delay;
+      if (opacity <= 0) fadeIn = true;
+    }
+
+    requestAnimationFrame(updateTitle);
+  }
+
+  const phrases = [
+    "",
+    "my",
+    "my teritory",
+    "my teritory my",
+    "my teritory my rules."
+  ];
+  const delays = [0.3, 0.4, 1.6, 0.5, 0.3];
+
+  const textElement = document.getElementById("text");
+  const overlay = document.getElementById("enter-popup");
+  const audio = document.getElementById("enter-sound");
+  const main = document.getElementById("mainContent");
+
+  overlay.addEventListener("click", function () {
+    overlay.classList.add("clicked");
+    audio.loop = true;
+    audio.play().catch(e => {
+      console.log("Audio error:", e);
+      alert("Audio couldn't play. Try clicking again or allow autoplay.");
+    });
+
+    setTimeout(() => {
+      overlay.style.opacity = "0";
+      setTimeout(() => {
+        overlay.style.display = "none";
+        main.classList.add("visible");
+        document.body.style.overflow = "auto";
+      }, 500);
+    }, 200);
+
+    let i = 0;
+    function updateText() {
+      if (i < phrases.length) {
+        textElement.textContent = phrases[i];
+        if (i === phrases.length - 1) {
+          setTimeout(() => {
+            overlay.style.opacity = "0";
+          }, delays[i] * 1000);
+        } else {
+          setTimeout(updateText, delays[i] * 1000);
+        }
+        i++;
+      }
+    }
+
+    requestAnimationFrame(updateTitle);
+    updateText();
+  });
+
+  // Optional: Resize canvas for bg effects if you use it
+  window.addEventListener("resize", () => {
+    const canvas = document.getElementById("bgCanvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+
+</body>
+</html>
